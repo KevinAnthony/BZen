@@ -10,11 +10,11 @@ func AddTwoNumbers(w http.ResponseWriter, r *http.Request) {
 
 	if err := UnmarshalFromRequest(r, &numbers); err != nil {
 		WriteError(w, err)
+
+		return
 	}
 
 	answer := numbers.First + numbers.Second
 
 	WriteSuccess(w, map[string]int{"answer": answer})
 }
-
-

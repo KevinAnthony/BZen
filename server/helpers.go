@@ -21,8 +21,24 @@ func UnmarshalFromRequest(res *http.Request, out interface{}) error{
 	return nil
 }
 
-func WriteError(w http.ResponseWriter, err error) {
+type Error struct {
+	Error string `json:"error"`
+}
 
+func WriteError(w http.ResponseWriter, err error) {
+	bts, err := json.Marshal(Error{Error: err.Error()})
+	if err != nil {
+		WriteError(w, errors.Wrap(err, "could not marshal output"))
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	if _, err = w.Write(bts); err != nil {
+		WriteError(w, errors.Wrap(err, "could not write to response"))
+	}
+
+	w.WriteHeader(http.StatusBadRequest)
 }
 
 func WriteSuccess(w http.ResponseWriter, out interface{}) {
