@@ -1,0 +1,20 @@
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct
+    - wrapcheck
+  #deprecated
+    - scopelint
+    - maligned
+    - interfacer
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - funlen
+        - goconst
+    - path: _mock\.go
+      linters:
+        - dupl
+        - gomnd
+        - forcetypeassert
