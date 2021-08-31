@@ -1,0 +1,19 @@
+language: go
+go:
+  - 1.16.x
+
+git:
+  depth: 1
+
+notifications:
+  email: false
+
+before_install:
+  - go get -t -v ./...
+
+script:
+  - go test -v -race ./...
+  - go test -covermode=count -coverprofile=coverage.txt ./...
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
