@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func UnmarshalFromRequest(res *http.Request, out interface{}) error{
+func UnmarshalFromRequest(res *http.Request, out interface{}) error {
 	bts, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return errors.Wrap(err, "failed to read from message body")
@@ -29,6 +29,7 @@ func WriteError(w http.ResponseWriter, err error) {
 	bts, err := json.Marshal(Error{Error: err.Error()})
 	if err != nil {
 		WriteError(w, errors.Wrap(err, "could not marshal output"))
+
 		return
 	}
 
@@ -45,6 +46,7 @@ func WriteSuccess(w http.ResponseWriter, out interface{}) {
 	bts, err := json.Marshal(out)
 	if err != nil {
 		WriteError(w, errors.Wrap(err, "could not marshal output"))
+
 		return
 	}
 

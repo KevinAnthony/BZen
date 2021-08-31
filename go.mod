@@ -1,4 +1,4 @@
-module github.com/KevinAnthony/LearnNGo
+module github.com/KevinAnthony/bzen
 
 go 1.16
 

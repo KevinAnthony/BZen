@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/KevinAnthony/LearnNGo/server"
+	"github.com/KevinAnthony/bzen/server"
 )
 
 func main() {

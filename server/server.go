@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	goji "goji.io"
-	"goji.io/pat"
 )
 
 type HTTPServer struct {
@@ -15,10 +14,6 @@ func NewServer() HTTPServer {
 	srv := HTTPServer{
 		mux: goji.NewMux(),
 	}
-
-	srv.mux.HandleFunc(pat.Post("/calc/add/two"), AddTwoNumbers)
-	srv.mux.HandleFunc(pat.Post("/calc/multiply/two"), Multiply)
-	srv.mux.HandleFunc(pat.Post("/calc/sum"), Sum)
 
 	return srv
 }
