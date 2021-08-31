@@ -1,4 +1,4 @@
-package bzenlib
+package app
 
 type ThingType string
 
