@@ -3,6 +3,10 @@ linters:
   disable:
     - exhaustivestruct
     - wrapcheck
+    - gofumpt
+    - gci
+    - godox
+    - deadcode
   #deprecated
     - scopelint
     - maligned

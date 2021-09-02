@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/KevinAnthony/bzen/server"
+	"github.com/kevinanthony/bzen/server"
 )
 
 func main() {
