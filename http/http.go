@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/kevinanthony/bzen/http/encoding"
+	"github.com/kevinanthony/bzen/http/encoder"
 )
 
 type Request interface {
@@ -54,5 +54,5 @@ func (r request) Go(ctx context.Context, client http.Client, v interface{}) erro
 		return err
 	}
 
-	return encoding.NewEncoding(resp).Decode(bts, v)
+	return encoder.New(resp).Decode(bts, v)
 }

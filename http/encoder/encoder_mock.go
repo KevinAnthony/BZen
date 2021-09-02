@@ -1,16 +1,16 @@
-package encoding
+package encoder
 
 import (
 	"github.com/stretchr/testify/mock"
 )
 
-var _ Encoder = (*EncoderMock)(nil)
+var _ Encoder = (*Mock)(nil)
 
-type EncoderMock struct {
+type Mock struct {
 	mock.Mock
 }
 
-func (e *EncoderMock) Encode(data interface{}) ([]byte, error) {
+func (e *Mock) Encode(data interface{}) ([]byte, error) {
 	args := e.Called(data)
 
 	var bts []byte
@@ -21,6 +21,6 @@ func (e *EncoderMock) Encode(data interface{}) ([]byte, error) {
 	return bts, args.Error(1)
 }
 
-func (e *EncoderMock) Decode(data []byte, dst interface{}) error {
+func (e *Mock) Decode(data []byte, dst interface{}) error {
 	return e.Called(data, dst).Error(0)
 }

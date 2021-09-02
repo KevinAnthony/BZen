@@ -1,4 +1,4 @@
-package encoding
+package encoder
 
 import (
 	"mime"
@@ -19,14 +19,14 @@ type Encoder interface {
 	Decode(data []byte, dst interface{}) error
 }
 
-func NewEncoding(resp *http.Response) Encoder {
+func New(resp *http.Response) Encoder {
 	mediaType, _, _ := mime.ParseMediaType(resp.Header.Get("content-type"))
 	switch mediaType {
 	case AcceptXML:
-		return NewXMLDecoder()
+		return NewXML()
 	case AcceptJSON:
-		return NewJSONDecoder()
+		return NewJSON()
 	default:
-		return NewJSONDecoder()
+		return NewJSON()
 	}
 }
