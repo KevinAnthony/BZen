@@ -14,6 +14,7 @@ before_install:
 script:
   - go test -v -race ./...
   - go test -covermode=count -coverprofile=coverage.txt ./...
+  - golangci-lint run
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
