@@ -6,7 +6,7 @@ linters:
     - gofumpt
     - gci
     - godox
-    - deadcode
+    - deadcode # TODO remove this. This is just for now
   #deprecated
     - scopelint
     - maligned
