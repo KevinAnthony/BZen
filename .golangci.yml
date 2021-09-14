@@ -18,6 +18,9 @@ issues:
         - lll
         - funlen
         - goconst
+        - goerr113
+        - forcetypeassert
+        - bodyclose
     - path: _mock\.go
       linters:
         - dupl

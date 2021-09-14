@@ -1,48 +1,8 @@
 package encoder_test
 
 import (
-	"net/http"
-	"testing"
 	"time"
-
-	"github.com/kevinanthony/bzen/http/encoder"
-
-	. "github.com/smartystreets/goconvey/convey"
 )
-
-func TestNew(t *testing.T) {
-	t.Parallel()
-
-	Convey("New", t, func() {
-		resp := &http.Response{
-			Header: http.Header{},
-		}
-
-		Convey("should return json encoder", func() {
-			Convey("when content-type is empty", func() {
-				actual := encoder.New(resp)
-
-				So(actual, ShouldHaveSameTypeAs, encoder.NewJSON())
-			})
-			Convey("when content-type is application/json", func() {
-				resp.Header.Add("content-type", encoder.ApplicationJSON)
-
-				actual := encoder.New(resp)
-
-				So(actual, ShouldHaveSameTypeAs, encoder.NewJSON())
-			})
-		})
-		Convey("should return xml encoder", func() {
-			Convey("when content-type is application/xml", func() {
-				resp.Header.Add("content-type", encoder.ApplicationXML)
-
-				actual := encoder.New(resp)
-
-				So(actual, ShouldHaveSameTypeAs, encoder.NewXML())
-			})
-		})
-	})
-}
 
 type testStruct struct {
 	Map    map[string]int `json:"map" xml:"-"`
