@@ -25,7 +25,7 @@ func TestNew(t *testing.T) {
 				So(actual, ShouldHaveSameTypeAs, encoder.NewJSON())
 			})
 			Convey("when content-type is application/json", func() {
-				resp.Header.Add("content-type", encoder.AcceptJSON)
+				resp.Header.Add("content-type", encoder.ApplicationJSON)
 
 				actual := encoder.New(resp)
 
@@ -34,7 +34,7 @@ func TestNew(t *testing.T) {
 		})
 		Convey("should return xml encoder", func() {
 			Convey("when content-type is application/xml", func() {
-				resp.Header.Add("content-type", encoder.AcceptXML)
+				resp.Header.Add("content-type", encoder.ApplicationXML)
 
 				actual := encoder.New(resp)
 

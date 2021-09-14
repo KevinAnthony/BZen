@@ -10,8 +10,8 @@ type (
 )
 
 const (
-	AcceptJSON AcceptType = "application/json"
-	AcceptXML  AcceptType = "application/xml"
+	ApplicationJSON AcceptType = "application/json"
+	ApplicationXML  AcceptType = "application/xml"
 )
 
 type Encoder interface {
@@ -21,9 +21,9 @@ type Encoder interface {
 
 func New(resp *http.Response) Encoder {
 	switch mediaType, _, _ := mime.ParseMediaType(resp.Header.Get("content-type")); mediaType {
-	case AcceptXML:
+	case ApplicationXML:
 		return NewXML()
-	case AcceptJSON:
+	case ApplicationJSON:
 		return NewJSON()
 	default:
 		return NewJSON()
