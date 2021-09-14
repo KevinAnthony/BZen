@@ -10,7 +10,9 @@ import (
 	"github.com/pkg/errors"
 )
 
-var errBadRequest = errors.New("request")
+var (
+	errBadRequest = errors.New("bad request")
+)
 
 type Client interface {
 	Do(req *native.Request, v interface{}) error
@@ -58,7 +60,7 @@ func (c client) Do(req *native.Request, v interface{}) error {
 	}
 
 	if resp.StatusCode >= native.StatusBadRequest {
-		return errors.Wrapf(errBadRequest, "status: %d msg: %s",
+		return errors.Wrapf(errBadRequest, "%d: %s",
 			resp.StatusCode, strings.Trim(string(bts), "\""))
 	}
 

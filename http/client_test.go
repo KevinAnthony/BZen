@@ -108,7 +108,7 @@ func TestClient_Do(t *testing.T) {
 
 				err := client.Do(req, &blank)
 
-				So(err, ShouldBeError, "status: 418 msg: you are a teapot")
+				So(err, ShouldBeError, "418: you are a teapot: bad request")
 				mock.AssertExpectationsForObjects(t, mocks...)
 			})
 			Convey("read body returns an error", func() {
