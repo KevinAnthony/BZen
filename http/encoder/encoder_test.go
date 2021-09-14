@@ -19,21 +19,23 @@ func TestNew(t *testing.T) {
 		}
 
 		Convey("should return json encoder", func() {
-			Convey("when accept is empty", func() {
+			Convey("when content-type is empty", func() {
 				actual := encoder.New(resp)
 
 				So(actual, ShouldHaveSameTypeAs, encoder.NewJSON())
 			})
-			Convey("when accept is application/json", func() {
+			Convey("when content-type is application/json", func() {
 				resp.Header.Add("content-type", encoder.AcceptJSON)
+
 				actual := encoder.New(resp)
 
 				So(actual, ShouldHaveSameTypeAs, encoder.NewJSON())
 			})
 		})
 		Convey("should return xml encoder", func() {
-			Convey("when accept is application/xml", func() {
+			Convey("when content-type is application/xml", func() {
 				resp.Header.Add("content-type", encoder.AcceptXML)
+
 				actual := encoder.New(resp)
 
 				So(actual, ShouldHaveSameTypeAs, encoder.NewXML())

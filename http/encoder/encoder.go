@@ -20,8 +20,7 @@ type Encoder interface {
 }
 
 func New(resp *http.Response) Encoder {
-	mediaType, _, _ := mime.ParseMediaType(resp.Header.Get("content-type"))
-	switch mediaType {
+	switch mediaType, _, _ := mime.ParseMediaType(resp.Header.Get("content-type")); mediaType {
 	case AcceptXML:
 		return NewXML()
 	case AcceptJSON:

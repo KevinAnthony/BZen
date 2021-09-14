@@ -1,6 +1,8 @@
 package encoder
 
-import jit "github.com/json-iterator/go"
+import (
+	jit "github.com/json-iterator/go"
+)
 
 type jsonEncoder struct {
 	jit jit.API
