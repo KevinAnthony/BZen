@@ -3,6 +3,10 @@ linters:
   disable:
     - exhaustivestruct
     - wrapcheck
+    - gofumpt
+    - gci
+    - godox
+    - deadcode # TODO remove this. This is just for now
   #deprecated
     - scopelint
     - maligned
@@ -11,8 +15,12 @@ issues:
   exclude-rules:
     - path: _test\.go
       linters:
+        - lll
         - funlen
         - goconst
+        - goerr113
+        - forcetypeassert
+        - bodyclose
     - path: _mock\.go
       linters:
         - dupl
