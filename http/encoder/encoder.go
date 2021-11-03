@@ -7,7 +7,6 @@ type (
 const (
 	ApplicationJSON AcceptType = "application/json"
 	ApplicationXML  AcceptType = "application/xml"
-	ApplicaitonYAML AcceptType = "application/yaml"
 )
 
 type Encoder interface {
