@@ -27,6 +27,10 @@ type client struct {
 	client     Native
 }
 
+func NewNativeClient() Native {
+	return &native.Client{}
+}
+
 func NewClient(nativeClient Native, enc encoder.Factory) Client {
 	if nativeClient == nil {
 		panic("http client is required")
