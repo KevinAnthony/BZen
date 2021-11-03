@@ -2,8 +2,10 @@ package http
 
 import (
 	"context"
+	"fmt"
 	native "net/http"
 	"net/url"
+	"strings"
 
 	"github.com/pkg/errors"
 )
@@ -15,8 +17,12 @@ type Request interface {
 	Get() Request
 	Put() Request
 	Delete() Request
+
 	Domain(string) Request
 	Path(string) Request
+	Parameter(string, string) Request
+
+	Header(string, string) Request
 }
 
 type request struct {
@@ -25,6 +31,9 @@ type request struct {
 	domain string
 	path   string
 	method MethodType
+
+	parameters map[string]string
+	headers    map[string]string
 }
 
 func (r *request) Post() Request {
@@ -63,21 +72,45 @@ func (r *request) Path(s string) Request {
 	return r
 }
 
+func (r *request) Parameter(pattern, value string) Request {
+	r.parameters[pattern] = value
+
+	return r
+}
+
+func (r *request) Header(header, value string) Request {
+	r.headers[header] = value
+
+	return r
+}
+
 func NewRequest(client Client) Request {
 	r := &request{
-		method: MethodGet,
+		method:     MethodGet,
+		parameters: map[string]string{},
+		headers:    map[string]string{},
 	}
 
 	if client == nil {
 		r.setErrStr("native client is nil")
 	}
 
+	r.client = client
+
 	return r
 }
 
-func (r *request) Go(ctx context.Context, v interface{}) error {
+func (r *request) Go(ctx context.Context, out interface{}) error {
 	if r.err != nil {
 		return r.err
+	}
+
+	for k, v := range r.parameters {
+		if !strings.Contains(r.path, k) {
+			return fmt.Errorf("missing parameter %s in path", k)
+		}
+
+		r.path = strings.ReplaceAll(r.path, k, v)
 	}
 
 	req := &native.Request{
@@ -88,12 +121,17 @@ func (r *request) Go(ctx context.Context, v interface{}) error {
 			Path:   r.path,
 		},
 		Proto:  "https",
-		Header: nil,
+		Header: native.Header{},
 		Body:   nil,
 	}
+
+	for k, v := range r.headers {
+		req.Header.Add(k, v)
+	}
+
 	req = req.WithContext(ctx)
 
-	return r.client.Do(req, v)
+	return r.client.Do(req, out)
 }
 
 func (r *request) setErrStr(s string) {

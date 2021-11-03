@@ -12,6 +12,18 @@ type RequestMock struct {
 	mock.Mock
 }
 
+func (r *RequestMock) Parameter(key, value string) Request {
+	r.Called(key, value)
+
+	return r
+}
+
+func (r *RequestMock) Header(key, value string) Request {
+	r.Called(key, value)
+
+	return r
+}
+
 func (r *RequestMock) Go(ctx context.Context, v interface{}) error {
 	return r.Called(ctx, v).Error(0)
 }
